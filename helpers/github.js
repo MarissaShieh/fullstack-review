@@ -14,7 +14,6 @@ let getReposByUsername = (username, callback) => {
       'Authorization': `token ${config.TOKEN}`
     }
   };
-  console.log('in getReposByUsername');
   request.get(options, callback);
 }
 

@@ -29,7 +29,7 @@ class App extends React.Component {
     $.ajax({
       url: '/repos',
       method: 'GET',
-      success: (dbResults)=>this.setState({repos: dbResults}),
+      success: (dbResults)=>{console.log('results from server', dbResults); this.setState({repos: dbResults})},
       error: (err)=> console.log('Failure to get top 25 from server')
     });
   }

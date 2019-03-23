@@ -13,12 +13,12 @@ app.post('/repos', function (req, res) {
   // and get the repo information from the github API, then
   // save the repo information in the database
   var putIntoDatabase = function (err, response, body) {
+    // console.log('result from github API', JSON.parse(body));
     database.save(JSON.parse(body));
     res.send("success");
   }
   
   Helper.getReposByUsername(req.body.term, putIntoDatabase);
-  console.log('end of app.post');
 });
 
 app.get('/repos', function (req, res) {
