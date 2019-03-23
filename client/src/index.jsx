@@ -10,19 +10,35 @@ class App extends React.Component {
     this.state = { 
       repos: []
     }
-
   }
 
   search (term) {
     console.log(`${term} was searched`);
     // TODO
+    $.ajax({ 
+      url: '/repos',
+      data: JSON.stringify({term: term}),
+      method: 'POST',
+      contentType: 'application/json;charset=utf-8',
+      success: ()=>{this.sendGET()},
+      error: (err)=>{console.log('Failed to post to server')}
+    });
+  }
+
+  sendGET(){
+    $.ajax({
+      url: '/repos',
+      method: 'GET',
+      success: (dbResults)=>this.setState({repos: dbResults}),
+      error: (err)=> console.log('Failure to get top 25 from server')
+    });
   }
 
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos}/>
     </div>)
   }
 }
